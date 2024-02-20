@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página com Vídeo de Fundo, Corações e Música</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    .video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        object-fit: cover;
+        
+        opacity: 0.9; /* Opacidade do vídeo */
+    }
+    .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white;
+        z-index: 1;
+    }
+    .content h1 {
+        font-size: 3em;
+    }
+    .content p {
+        font-size: 1.5em;
+    }
+    /* Estilos para os corações */
+    .heart {
+        position: absolute;
+        width: 50px; /* Reduzi o tamanho dos corações para uma melhor visualização */
+        height: 50px;
+        background: url('https://emojicdn.elk.sh/❤️') no-repeat; /* Usei um emoji de coração como exemplo */
+        background-size: contain;
+        animation: heartAnimation 8s linear infinite;
+    }
+    h1 {
+            color: #ffffff;
+            font-size: 28px;
+        }
+        
+        p {
+            color: #ffffff;
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            background-color: #fc060652;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+    button {
+            background-color: #e70000;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #ee5c5c;
+        }
+    /* Animação dos corações subindo */
+    @keyframes heartAnimation {
+        0% {
+            bottom: -100px;
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            bottom: 100%;
+            opacity: 0;
+        }
+    }
+</style>
+</head>
+<body>
+<video autoplay muted loop class="video-background">
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<div class="content">
+    <h1>Eu te amo e muito!</h1>
+        <p>Vida, quero aproveitar este momento para expressar o quanto você significa para mim. Agradeço por você existir e por iluminar meus dias com seu sorriso, sua bondade e sua presença. Admiro muito quem você é e o que você representa na minha vida. (É eu sei que sou grudenta rs)</p>
+        
+    <button onclick="window.location.href='quebracabeca.html'">Para você distrair a cabeça! Clique aqui</button>
+</div>
+
+<!-- Corações animados -->
+<div class="heart" style="left: 10%; animation-delay: 1s;"></div>
+<div class="heart" style="left: 20%; animation-delay: 2s;"></div>
+<div class="heart" style="left: 30%; animation-delay: 3s;"></div>
+<div class="heart" style="left: 40%; animation-delay: 4s;"></div>
+<div class="heart" style="left: 50%; animation-delay: 5s;"></div>
+<div class="heart" style="left: 60%; animation-delay: 6s;"></div>
+<div class="heart" style="left: 70%; animation-delay: 7s;"></div>
+<div class="heart" style="left: 80%; animation-delay: 8s;"></div>
+<div class="heart" style="left: 90%; animation-delay: 9s;"></div>
+
+<script>
+   // Chama a função para embaralhar os ângulos de rotação ao carregar a página
+window.onload = function() {
+    shuffleAngles();
+    var audio = new Audio('musica.mp3');
+    audio.loop = true;
+    audio.play();
+};
+</script>
+</body>
+</html>

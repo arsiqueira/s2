@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jogo de Quebra-Cabeça Romântico</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+    #background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.7; /* Opacidade do vídeo */
+        object-fit: cover;
+    }
+    .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white;
+        z-index: 1;
+    }
+    .content h1 {
+        font-size: 3em;
+    }
+    .content p {
+        font-size: 1.5em;
+    }
+    /* Estilos para os corações */
+    .heart {
+        position: absolute;
+        width: 50px; /* Reduzi o tamanho dos corações para uma melhor visualização */
+        height: 50px;
+        background: url('https://emojicdn.elk.sh/❤️') no-repeat; /* Usei um emoji de coração como exemplo */
+        background-size: contain;
+        animation: heartAnimation 8s linear infinite;
+    }
+    /* Animação dos corações subindo */
+    @keyframes heartAnimation {
+        0% {
+            bottom: -100px;
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            bottom: 100%;
+            opacity: 0;
+        }
+    }
+    #puzzle-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 2px solid #ccc;
+        overflow: hidden;
+        width: 405px; /* Largura do quebra-cabeça reduzida em 55% */
+        height: 536px; /* Altura do quebra-cabeça reduzida em 55% */
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .puzzle-piece {
+        width: 135px; /* Largura de cada peça reduzida em 55% */
+        height: 178px; /* Altura de cada peça reduzida em 55% */
+        cursor: pointer;
+        transition: transform 0.5s ease;
+        background-image: url('qcb.jpeg');
+        background-size: 405px 536px; /* Tamanho da imagem principal */
+    }
+    .home-icon {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 2;
+        cursor: pointer;
+        
+    }
+    .home{
+width: 10%;
+    }
+</style>
+</head>
+<body>
+    
+<a href="index.html" class="home-icon">
+    <img src="home.png" alt="Home" class="home">
+</a>
+<video id="background" autoplay muted loop class="video-background">
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<!-- Corações animados -->
+<div class="heart" style="left: 10%; animation-delay: 1s;"></div>
+<div class="heart" style="left: 20%; animation-delay: 2s;"></div>
+<div class="heart" style="left: 30%; animation-delay: 3s;"></div>
+<div class="heart" style="left: 40%; animation-delay: 4s;"></div>
+<div class="heart" style="left: 50%; animation-delay: 5s;"></div>
+<div class="heart" style="left: 60%; animation-delay: 6s;"></div>
+<div class="heart" style="left: 70%; animation-delay: 7s;"></div>
+<div class="heart" style="left: 80%; animation-delay: 8s;"></div>
+<div class="heart" style="left: 90%; animation-delay: 9s;"></div>
+<div id="puzzle-container">
+    <div class="puzzle-piece" style="background-position: 0 0;" data-rotation="0" onclick="rotatePiece(this)"></div>
+    <div class="puzzle-piece" style="background-position: -135px 0;" data-rotation="90" onclick="rotatePiece(this)"></div>
+    <div class="puzzle-piece" style="background-position: -270px 0;" data-rotation="180" onclick="rotatePiece(this)"></div>
+    <div class="puzzle-piece" style="background-position: 0 -178px;" data-rotation="270" onclick="rotatePiece(this)"></div>
+    <div class="puzzle-piece" style="background-position: -135px -178px;" data-rotation="0" onclick="rotatePiece(this)"></div>
+    <div class="puzzle-piece" style="background-position: -270px -178px;" data-rotation="90" onclick="rotatePiece(this)"></div>
+    <div class="puzzle-piece" style="background-position: 0 -356px;" data-rotation="180" onclick="rotatePiece(this)"></div>
+    <div class="puzzle-piece" style="background-position: -135px -356px;" data-rotation="270" onclick="rotatePiece(this)"></div>
+    <div class="puzzle-piece" style="background-position: -270px -356px;" data-rotation="0" onclick="rotatePiece(this)"></div>
+</div>
+
+<script>
+    // Chama a função para embaralhar os ângulos de rotação ao carregar a página
+window.onload = function() {
+    shuffleAngles();
+    var audio = new Audio('musica.mp3');
+    audio.loop = true;
+    audio.play();
+};
+// Função para embaralhar os ângulos de rotação das peças do quebra-cabeça
+function shuffleAngles() {
+    var pieces = document.querySelectorAll('.puzzle-piece');
+    pieces.forEach(function(piece) {
+        var randomRotation = Math.floor(Math.random() * 4) * 90; // Gera um ângulo aleatório (0, 90, 180 ou 270)
+        piece.style.transform = `rotate(${randomRotation}deg)`; // Aplica o ângulo aleatório à peça
+        piece.dataset.rotation = randomRotation; // Armazena o ângulo de rotação como um atributo de dados
+    });
+}
+
+
+
+function rotatePiece(piece) {
+    var currentRotation = parseInt(piece.dataset.rotation); // Obtém o ângulo de rotação atual
+    var newRotation = (currentRotation + 90) % 360; // Adiciona 90 graus e mantém o resultado entre 0 e 360
+    piece.style.transform = `rotate(${newRotation}deg)`; // Aplica a nova rotação à peça
+    piece.dataset.rotation = newRotation; // Atualiza o ângulo de rotação armazenado
+}
+</script>
+</body>
+</html>
